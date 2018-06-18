@@ -364,3 +364,8 @@ ul.btn-group {
   white-space: nowrap;
   overflow: hidden !important;
 }
+
+.docInfo {
+	margin-left: 33%;
+	margin-right: 33%;
+}

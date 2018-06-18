@@ -29,22 +29,6 @@ jQuery(document).on('bootstrap3:init', function(e) {
     // Page heading
     $dw_content.find('h1').addClass('page-header');
 
-    // Tables (no for Rack, Diagram and Edittable Plugins)
-    if (! jQuery('#edittable__editor').length) {
-
-      if (TPL_CONFIG.tableStyle.indexOf('responsive') !== -1) {
-        $dw_content.find('table').not('.rack, .diagram').parent().addClass('table-responsive');
-      }
-
-      var table_class = ['table'];
-
-      if (TPL_CONFIG.tableStyle.indexOf('striped') !== -1) table_class.push('table-striped');
-      if (TPL_CONFIG.tableStyle.indexOf('condensed') !== -1) table_class.push('table-condensed');
-
-      $dw_content.find('table').not('.rack, .diagram').addClass(table_class.join(' '));
-
-    }
-
     if (! TPL_CONFIG.tableFullWidth) {
       $dw_content.find('.table').css('width', 'auto');
     }

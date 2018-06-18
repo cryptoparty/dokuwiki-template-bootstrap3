@@ -68,37 +68,5 @@ if ($showLandingPage && (bool) preg_match_all(bootstrap3_conf('landingPages'), $
   $pageOnPanel = false;
 }
 
-if ($showThemeSwitcher && $bootstrapTheme == 'bootswatch') {
-
-  if (get_doku_pref('bootswatchTheme', null) !== null && get_doku_pref('bootswatchTheme', null) !== '') {
-    $bootswatchTheme = get_doku_pref('bootswatchTheme', null);
-  }
-
-  global $INPUT;
-
-  if ($INPUT->str('bootswatchTheme')) {
-    $bootswatchTheme = $INPUT->str('bootswatchTheme');
-    set_doku_pref('bootswatchTheme', $bootswatchTheme);
-  }
-
-}
-
-switch ($bootstrapTheme) {
-
-  case 'optional':
-    $bootstrapStyles[] = DOKU_TPL.'assets/bootstrap/css/bootstrap.min.css';
-    $bootstrapStyles[] = DOKU_TPL.'assets/bootstrap/css/bootstrap-theme.min.css';
-    break;
-  case 'custom':
-    $bootstrapStyles[] = $customTheme;
-    break;
-  case 'bootswatch':
-    $url = ($useLocalBootswatch) ? DOKU_TPL.'assets/bootswatch' : '//maxcdn.bootstrapcdn.com/bootswatch/3.3.5';
-    $bootstrapStyles[] = "$url/$bootswatchTheme/bootstrap.min.css";
-    break;
-  case 'default':
-  default:
-    $bootstrapStyles[] = DOKU_TPL.'assets/bootstrap/css/bootstrap.min.css';
-    break;
-
-}
+$bootstrapStyles[] = DOKU_TPL.'assets/cryptostrap/css/bootstrap.min.css';
+$bootstrapStyles[] = DOKU_TPL.'assets/cryptostrap/css/bootstrap-theme.min.css';

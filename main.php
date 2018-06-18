@@ -1,9 +1,11 @@
 <?php
 /**
  * DokuWiki Bootstrap3 Template
+ * reduced for CryptoParty(.in)
  *
- * @link     http://dokuwiki.org/template:bootstrap3
+ * @link     https://github.com/mdik/dokuwiki-template-bootstrap3
  * @author   Giuseppe Di Terlizzi <giuseppe.diterlizzi@gmail.com>
+ * @author   Malte Dik <malte@enteig.net>
  * @license  GPL 2 (http://www.gnu.org/licenses/gpl.html)
  */
 
@@ -14,55 +16,6 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 include_once(dirname(__FILE__).'/tpl_global.php'); // Include template global variables
 
 if (isset($_GET['do']) && $_GET['do'] == 'check') msg('bootstrap3 template version: v' . $template_info['date'], 1, '', '', MSG_ADMINS_ONLY);
-
-$navbar_padding = 20;
-
-if ($fixedTopNavbar) {
-
-  if ($bootstrapTheme == 'bootswatch') {
-
-    // Set the navbar height for all Bootswatch Themes (values from bootswatch/*/_variables.scss)
-    switch ($bootswatchTheme) {
-      case 'simplex':
-      case 'superhero':
-        $navbar_height = 40;
-        break;
-      case 'yeti':
-        $navbar_height = 45;
-        break;
-      case 'cerulean':
-      case 'cosmo':
-      case 'custom':
-      case 'cyborg':
-      case 'lumen':
-      case 'slate':
-      case 'spacelab':
-      case 'united':
-        $navbar_height = 50;
-        break;
-      case 'darkly':
-      case 'flatly':
-      case 'journal':
-      case 'sandstone':
-        $navbar_height = 60;
-        break;
-      case 'paper':
-        $navbar_height = 64;
-        break;
-      case 'readable':
-        $navbar_height = 65;
-        break;
-      default:
-        $navbar_height = 50;
-    }
-
-  } else {
-    $navbar_height = 50;
-  }
-
-  $navbar_padding += $navbar_height;
-
-}
 
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $conf['lang'] ?>"
@@ -85,8 +38,8 @@ if ($fixedTopNavbar) {
   <?php tpl_metaheaders() ?>
   <script type="text/javascript" src="<?php echo DOKU_TPL ?>assets/bootstrap/js/bootstrap.min.js"></script>
   <style type="text/css">
-    body { padding-top: <?php echo $navbar_padding ?>px; }
-    .toc-affix { z-index: 9999; top: <?php echo ($navbar_padding -10) ?>px; right: 10px; }
+    body { padding-top: 20px; }
+    .toc-affix { z-index: 9999; top: 10px; right: 10px; }
   </style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -94,23 +47,12 @@ if ($fixedTopNavbar) {
   <script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <?php if ($fixedTopNavbar): ?>
-  <script type="text/javascript">/*<![CDATA[*/
-    jQuery(document).ready(function() {
-      if (location.hash) {
-        setTimeout(function() {
-          scrollBy(0, -<?php echo $navbar_padding ?>);
-        }, 1);
-      }
-    });
-  /*!]]>*/</script>
-  <?php endif; ?>
 </head>
 <?php tpl_flush() ?>
-<body class="<?php echo (($bootstrapTheme == 'bootswatch') ? $bootswatchTheme : $bootstrapTheme) . ($pageOnPanel ? ' page-on-panel' : ''); ?>">
+<body class="page-on-panel">
   <!--[if IE 8 ]><div id="IE8"><![endif]-->
   <div id="dokuwiki__site" class="container<?php echo ($fluidContainer) ? '-fluid' : '' ?>">
-    <div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?> <?php echo ($showSidebar) ? 'hasSidebar' : ''; ?>">
+    <div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?> hasSidebar">
 
       <?php tpl_includeFile('topheader.html') ?>
 
@@ -155,8 +97,8 @@ if ($fixedTopNavbar) {
         <!-- ********** CONTENT ********** -->
         <article id="dokuwiki__content" class="<?php echo $contentGrid ?>" <?php echo (($semantic) ? 'itemscope itemtype="http://schema.org/'.$schemaOrgType.'"' : '') ?>>
 
-          <div class="<?php echo ($pageOnPanel ? 'panel panel-default' : 'no-panel') ?>" <?php echo (($semantic) ? 'itemprop="articleBody"' : '') ?>> 
-            <div class="page <?php echo ($pageOnPanel ? 'panel-body' : '') ?>">
+          <div class="panel panel-default"> 
+            <div class="page panel-body">
 
               <?php
                 tpl_flush(); /* flush the output buffer */
@@ -175,7 +117,7 @@ if ($fixedTopNavbar) {
               </div>
 
               <!-- wikipage start -->
-              <?php echo $content; ?>
+              <?php echo str_replace('<table class="inline">', '<table class="inline table table-striped table-responsive table-condensed table-hover">', $content); ?>
               <!-- wikipage stop -->
 
               <?php
@@ -209,17 +151,9 @@ if ($fixedTopNavbar) {
 
         <div class="text-right">
 
-          <?php if ($showPageInfo): ?>
           <span class="docInfo">
             <?php tpl_pageinfo() /* 'Last modified' etc */ ?>
           </span>
-          <?php endif ?>
-
-          <?php if ($showLoginOnFooter && ! $_SERVER['REMOTE_USER']): ?>
-          <span class="loginLink hidden-print">
-            <?php echo tpl_action('login', 1, 0, 1, '<i class="fa fa-sign-in"></i> '); ?>
-          </span>
-          <?php endif; ?>
 
         </div>
 
@@ -229,7 +163,6 @@ if ($fixedTopNavbar) {
 
       <?php
         tpl_includeFile('footer.html');
-        @require_once('tpl_cookielaw.php');
       ?>
 
     </div><!-- /site -->

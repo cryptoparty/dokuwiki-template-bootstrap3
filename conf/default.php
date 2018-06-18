@@ -45,4 +45,4 @@ $conf['showLandingPage']     = 0;
 $conf['landingPages']        = '(intro)';
 $conf['showPageTools']       = 'always';
 $conf['useLocalBootswatch']  = 1;
-$conf['tableStyle']          = 'striped,condensed,responsive';
+$conf['tableStyle']          = 'striped,condensed,responsive,hover';
